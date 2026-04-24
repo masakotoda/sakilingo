@@ -23,7 +23,7 @@
 <table id="tsvTable"></table>
 
 <script>
-  fetch('data.tsv')
+  fetch('sentences.tsv')
     .then(response => {
       if (!response.ok) {
         throw new Error('Failed to load TSV file');
