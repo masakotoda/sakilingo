@@ -127,11 +127,7 @@ function shuffle(array) {
 
       // Optional: attach to window for inspection
 
-// Usage
-const shuffled = shuffle(data);
-
-
-      window.sentences = data;
+      window.sentences = shuffle(data);
     })
     .catch(err => {
       console.error(err);
