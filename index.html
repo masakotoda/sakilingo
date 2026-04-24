@@ -5,7 +5,7 @@
   <title>TSV Table</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 40px; }
-    input { width: 300px; padding: 10px; font-size: 16px; }
+    input { width: 600px; padding: 10px; font-size: 16px; }
     button { padding: 10px; font-size: 16px; margin-left: 10px; }
 
     table {
@@ -25,6 +25,7 @@
 
     <input id="textInput" type="text" placeholder="Click mic and speak..." />
   <button id="micBtn">🎤</button>
+  <button id="confirmBtn">🎤</button>
 
 <h2>TSV Data</h2>
 <table id="tsvTable"></table>
@@ -33,6 +34,7 @@
 
     const input = document.getElementById("textInput");
     const micBtn = document.getElementById("micBtn");
+    const confirmBtn = document.getElementById("confirmBtn");
 
     // Check browser support
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -57,6 +59,16 @@
       recognition.onerror = (event) => {
         console.error("Speech recognition error:", event.error);
       };
+
+
+      confirmBtn.addEventListener("click", () => {
+        const userInput = input.value.trim();
+        if (userInput) {
+          alert(`You entered: ${userInput}`);
+        } else {
+          alert("Please enter some text first.");
+        }
+      });
     }
 
   fetch('sentences.tsv')
