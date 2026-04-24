@@ -23,18 +23,24 @@
 </head>
 <body>
 
-    <input id="textInput" type="text" placeholder="Click mic and speak..." />
+  <input id="textInput" type="text" placeholder="Click mic and speak..." />
   <button id="micBtn">🎤</button>
-  <button id="confirmBtn">🎤</button>
+  <button id="confirmBtn">Check</button>
+  <button id="nextBtn">Next</button>
+  <label id="countLabel">Counter: 0</label>
+  <label id="nextSentenceLabel"></label>
 
 <h2>TSV Data</h2>
 <table id="tsvTable"></table>
 
 <script>
-
+  var counter = 0;
     const input = document.getElementById("textInput");
     const micBtn = document.getElementById("micBtn");
     const confirmBtn = document.getElementById("confirmBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const countLabel = document.getElementById("countLabel");
+    const nextSentenceLabel = document.getElementById("nextSentenceLabel");
 
     // Check browser support
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -69,7 +75,47 @@
           alert("Please enter some text first.");
         }
       });
+
+      nextBtn.addEventListener("click", () => {
+        counter++;
+        countLabel.textContent = `Counter: ${counter}`;
+        nextSentenceLabel.textContent = `Next sentence: ${sentences[counter] ?? ""}`; 
+      });
     }
+
+    var sentences = [];
+  fetch('sentences.tsv')
+    .then(res => {
+      if (!res.ok) throw new Error('Failed to load TSV');
+      return res.text();
+    })
+    .then(text => {
+      const lines = text.trim().split('\n');
+
+      // Extract headers
+      const headers = lines[0].split('\t');
+
+      // Map rows to objects
+      const data = lines.slice(1).map(line => {
+        const values = line.split('\t');
+        const obj = {};
+
+        headers.forEach((header, i) => {
+          obj[header] = values[i] ?? "";
+        });
+
+        return obj;
+      });
+
+      // Result
+      console.log(data);
+
+      // Optional: attach to window for inspection
+      window.sentences = data;
+    })
+    .catch(err => {
+      console.error(err);
+    });
 
   fetch('sentences.tsv')
     .then(response => {
