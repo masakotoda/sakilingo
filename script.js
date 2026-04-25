@@ -1,43 +1,48 @@
 import * as utils from './utils.js';
+import * as handlers from './handlers.js';
 
 const state = {
     counter: 0,
-    sentences: []
+    sentences: [],
+    recognition: null
 };
 
-const input = document.getElementById("textInput");
-const micBtn = document.getElementById("micBtn");
-const confirmBtn = document.getElementById("confirmBtn");
-const nextBtn = document.getElementById("nextBtn");
-const countLabel = document.getElementById("countLabel");
-const nextSentenceLabel = document.getElementById("nextSentenceLabel");
-const testTTSLink = document.getElementById("testTTS");
-
+const elements = {
+    input: document.getElementById("textInput"),
+    micBtn: document.getElementById("micBtn"),
+    confirmBtn: document.getElementById("confirmBtn"),
+    nextBtn: document.getElementById("nextBtn"),
+    countLabel: document.getElementById("countLabel"),
+    nextSentenceLabel: document.getElementById("nextSentenceLabel"),
+    readOutByGoogleLink: document.getElementById("readOutByGoogle"),
+    readOutForm: document.getElementById('readOutForm')
+};
 
 if (location.hostname === 'localhost') {
     window.__state = state;
 }
 
-const recognition = utils.initSpeechRecognition();
+state.recognition = utils.initSpeechRecognition();
 
-if (recognition) {
-    micBtn.addEventListener("click", () => {
-        recognition.start();
+if (state.recognition) {
+    elements.micBtn.addEventListener("click", () => {
+        elements.input.value = "";
+        state.recognition.start();
     });
 
-    recognition.onresult = (event) => {
+    state.recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
-        input.value = transcript;
+        elements.input.value = transcript;
     };
 
-    recognition.onerror = (event) => {
+    state.recognition.onerror = (event) => {
         console.error("Speech recognition error:", event.error);
     };
 
-    confirmBtn.addEventListener("click", () => {
-        const userInput = input.value.trim();
+    elements.confirmBtn.addEventListener("click", () => {
+        const userInput = elements.input.value.trim();
         if (userInput) {
-            recognition.stop();
+            state.recognition.stop();
             if (userInput.toLowerCase() === nextSentenceLabel.textContent.toLowerCase()) {
                 alert(`You entered: ${userInput}`);
             } else {
@@ -48,25 +53,25 @@ if (recognition) {
         }
     });
 
-    nextBtn.addEventListener("click", () => {
+    elements.nextBtn.addEventListener("click", () => {
         console.log(state.sentences[state.counter])
-        nextSentenceLabel.textContent = `Next sentence: ${state.sentences[state.counter].sen ?? ""}`;
+
+        elements.input.value = "";
+        elements.nextSentenceLabel.textContent = `${state.sentences[state.counter].sen ?? ""}`;
+        elements.readOutByGoogleLink.href = utils.getGoogleTTSUrl(elements.nextSentenceLabel.textContent);
+
         state.counter++;
-        countLabel.textContent = `Counter: ${state.counter}`;
-        testTTSLink.href = utils.getGoogleTTSUrl(nextSentenceLabel.textContent.replace("Next sentence: ", ""));
+        elements.countLabel.textContent = `Counter: ${state.counter}`;
     });
 }
 
- const form = document.getElementById('readOutForm');
-
-  form.addEventListener('submit', (e) => {
+elements.readOutForm.addEventListener('submit', (e) => {
     e.preventDefault(); // prevent page reload
 
-    const selected = form.elements['accent'].value;
+    const selected = elements.readOutForm.elements['accent'].value;
     console.log("Selected accent:", selected);
-    utils.readOutFallback(nextSentenceLabel.textContent.replace("Next sentence: ", ""));
-    //utils.readOut(nextSentenceLabel.textContent.replace("Next sentence: ", ""), selected);
-  });
+    utils.readOut(nextSentenceLabel.textContent, selected);
+});
 
 
 //

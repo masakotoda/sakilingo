@@ -34,22 +34,4 @@ function getGoogleTTSUrl(sentence) {
   return `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(sentence)}&tl=en&client=tw-ob`;
 }
 
-async function readOutFallback(sentence) {
- const url = getTTSUrl(sentence);
-
-  const res = await fetch(url);
-  const blob = await res.blob();
-
-  const audioUrl = URL.createObjectURL(blob);
-  const audio = new Audio(audioUrl);
-  audio.play();
-
- window.open(url, '_blank');
-//console.log(url);
-//  
-//  audio.play().catch(err => {
-//    console.error("Playback failed:", err);
-//  });
-}
-
-export { shuffle, initSpeechRecognition, readOut, readOutFallback, getGoogleTTSUrl };
+export { shuffle, initSpeechRecognition, readOut, getGoogleTTSUrl };

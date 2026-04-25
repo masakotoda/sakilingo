@@ -6,59 +6,42 @@
   <title>sakilingo</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-    }
-
-    input {
-      width: 600px;
       padding: 10px;
-      font-size: 16px;
     }
 
     button {
-      padding: 10px;
-      font-size: 16px;
+      padding: 3px;
       margin-left: 10px;
-    }
-
-    table {
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    th,
-    td {
-      border: 1px solid #333;
-      padding: 8px 12px;
-    }
-
-    th {
-      background-color: #f0f0f0;
     }
   </style>
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script type="module" src="script.js"></script>
 </head>
 
 <body>
 
-  <input id="textInput" type="text" placeholder="Click mic and speak..." />
-  <button id="micBtn">🎤</button>
-  <button id="confirmBtn">Check</button>
-  <button id="nextBtn">Next</button>
-  <label id="countLabel">Counter: 0</label>
-  <label id="nextSentenceLabel"></label>
-
+  <div>
+    <input id="textInput" type="text" style="width: 600px;" placeholder="Click mic and speak..." />
+    <button id="micBtn">🎤</button>
+    <button id="confirmBtn">Check</button>
+    <button id="nextBtn">Next</button>
+    <label id="countLabel">Counter: 0</label>
+  </div>
+  <div>
+    Next sentence: <label id="nextSentenceLabel"></label>
+  </div>
   <form id="readOutForm">
-  <label><input type="radio" name="accent" value="US" checked> American</label><br>
-  <label><input type="radio" name="accent" value="GB"> British</label><br>
-  <label><input type="radio" name="accent" value="AU"> Aussie</label>
+    <label><input type="radio" name="accent" value="US" checked> American</label>
+    <label><input type="radio" name="accent" value="GB"> British</label>
+    <label><input type="radio" name="accent" value="AU"> Aussie</label>
+    <button type="submit">Read</button>
+  </form>
 
-  <button type="submit">Read</button>
-
-  <a href="https://www.google.com" target="sakilingoGoogleTTS" rel="noopener noreferrer" id="testTTS">Test TTS</a>
- </form>
+  <a href="" target="sakilingoGoogleTTS" rel="noopener noreferrer" id="readOutByGoogle">Read by Google with American
+    accent</a>
 
   <h2>TSV Data</h2>
   <table id="tsvTable"></table>
