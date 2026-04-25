@@ -1,5 +1,4 @@
 import * as utils from './utils.js';
-import * as handlers from './handlers.js';
 
 const state = {
     counter: 0,
