@@ -11,7 +11,7 @@ const confirmBtn = document.getElementById("confirmBtn");
 const nextBtn = document.getElementById("nextBtn");
 const countLabel = document.getElementById("countLabel");
 const nextSentenceLabel = document.getElementById("nextSentenceLabel");
-
+const testTTSLink = document.getElementById("testTTS");
 
 
 if (location.hostname === 'localhost') {
@@ -53,6 +53,7 @@ if (recognition) {
         nextSentenceLabel.textContent = `Next sentence: ${state.sentences[state.counter].sen ?? ""}`;
         state.counter++;
         countLabel.textContent = `Counter: ${state.counter}`;
+        testTTSLink.href = utils.getGoogleTTSUrl(nextSentenceLabel.textContent.replace("Next sentence: ", ""));
     });
 }
 
@@ -66,22 +67,7 @@ if (recognition) {
     utils.readOutFallback(nextSentenceLabel.textContent.replace("Next sentence: ", ""));
     //utils.readOut(nextSentenceLabel.textContent.replace("Next sentence: ", ""), selected);
   });
-/*
-readUSBtn.addEventListener("click", () => {
-    const sentence = nextSentenceLabel.textContent.replace("Next sentence: ", "");
-    utils.readOutUS(sentence);
-});
 
-readGBBtn.addEventListener("click", () => {
-    const sentence = nextSentenceLabel.textContent.replace("Next sentence: ", "");
-    utils.readOutGB(sentence);
-});
-
-readAUBtn.addEventListener("click", () => {
-    const sentence = nextSentenceLabel.textContent.replace("Next sentence: ", "");
-    utils.readOutAU(sentence);
-});
-*/
 
 //
 //  sentences.push({ sen: "The quick brown fox jumps over the lazy dog." });

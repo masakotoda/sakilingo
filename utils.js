@@ -30,13 +30,26 @@ function readOut(sentence, accent) {
     window.speechSynthesis.speak(utterance);
 }
 
-function readOutFallback(sentence) {
- const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(sentence)}&tl=en&client=tw-ob`;
-
-  const audio = new Audio(url);
-  audio.play().catch(err => {
-    console.error("Playback failed:", err);
-  });
+function getGoogleTTSUrl(sentence) {
+  return `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(sentence)}&tl=en&client=tw-ob`;
 }
 
-export { shuffle, initSpeechRecognition, readOut, readOutFallback };
+async function readOutFallback(sentence) {
+ const url = getTTSUrl(sentence);
+
+  const res = await fetch(url);
+  const blob = await res.blob();
+
+  const audioUrl = URL.createObjectURL(blob);
+  const audio = new Audio(audioUrl);
+  audio.play();
+
+ window.open(url, '_blank');
+//console.log(url);
+//  
+//  audio.play().catch(err => {
+//    console.error("Playback failed:", err);
+//  });
+}
+
+export { shuffle, initSpeechRecognition, readOut, readOutFallback, getGoogleTTSUrl };
