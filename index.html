@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>TSV Table</title>
+  <title>sakilingo</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 40px; }
-    input { width: 600px; padding: 10px; font-size: 16px; }
-    button { padding: 10px; font-size: 16px; margin-left: 10px; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+
+    input {
+      width: 600px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      margin-left: 10px;
+    }
 
     table {
       border-collapse: collapse;
       margin-top: 20px;
     }
-    th, td {
+
+    th,
+    td {
       border: 1px solid #333;
       padding: 8px 12px;
     }
+
     th {
       background-color: #f0f0f0;
     }
   </style>
 
-  <script src="script.js" defer></script>
+  <script type="module" src="script.js"></script>
 </head>
+
 <body>
 
   <input id="textInput" type="text" placeholder="Click mic and speak..." />
@@ -32,7 +50,9 @@
   <label id="countLabel">Counter: 0</label>
   <label id="nextSentenceLabel"></label>
 
-<h2>TSV Data</h2>
-<table id="tsvTable"></table>
+  <h2>TSV Data</h2>
+  <table id="tsvTable"></table>
+
 </body>
+
 </html>
