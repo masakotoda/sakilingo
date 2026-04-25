@@ -9,6 +9,7 @@ const state = {
 const elements = {
     input: document.getElementById("textInput"),
     micBtn: document.getElementById("micBtn"),
+    prevBtn: document.getElementById("prevBtn"),
     nextBtn: document.getElementById("nextBtn"),
     countLabel: document.getElementById("countLabel"),
     nextSentenceLabel: document.getElementById("nextSentenceLabel"),
@@ -29,6 +30,7 @@ if (!state.recognition) {
 
 elements.micBtn.addEventListener("click", () => {
     elements.input.value = "";
+    elements.input.placeholder = "Listening...";
     state.recognition.start();
 });
 
@@ -41,18 +43,19 @@ state.recognition.onerror = (event) => {
     console.error("Speech recognition error:", event.error);
 };
 
+
+elements.prevBtn.addEventListener("click", () => {
+    if (state.counter > 1) {
+        state.counter--;
+        updateSentence();
+    }
+});
+
 elements.nextBtn.addEventListener("click", () => {
-    console.log(state.sentences[state.counter])
-
-    elements.input.value = "";
-
-    // elements.nextSentenceLabel.textContent = `${state.sentences[state.counter].sen ?? ""}`;
-    elements.nextSentenceLabel.textContent = utils.getEnglish(state.sentences[state.counter]);
-    elements.japaneseLabel.textContent = utils.getJapanese(state.sentences[state.counter]);
-    elements.readOutByGoogleLink.href = utils.getGoogleTTSUrl(elements.nextSentenceLabel.textContent);
-
-    state.counter++;
-    elements.countLabel.textContent = `Counter: ${state.counter}`;
+    if (state.counter < state.sentences.length) {
+        state.counter++;
+        updateSentence();
+    }
 });
 
 elements.readOutForm.addEventListener('submit', (e) => {
@@ -128,3 +131,17 @@ fetch('sentences.tsv')
         console.error(error);
         document.body.insertAdjacentHTML('beforeend', '<p>Error loading data.</p>');
     });
+
+
+function updateSentence() {
+    console.log(state.sentences[state.counter])
+
+    elements.input.value = "";
+
+    // elements.nextSentenceLabel.textContent = `${state.sentences[state.counter].sen ?? ""}`;
+    elements.nextSentenceLabel.textContent = utils.getEnglish(state.sentences[state.counter - 1]);
+    elements.japaneseLabel.textContent = utils.getJapanese(state.sentences[state.counter - 1]);
+    elements.readOutByGoogleLink.href = utils.getGoogleTTSUrl(elements.nextSentenceLabel.textContent);
+
+    elements.countLabel.textContent = `Counter: ${state.counter}`;
+}
