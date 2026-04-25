@@ -24,4 +24,10 @@ function initSpeechRecognition() {
     }
 }
 
-export { shuffle, initSpeechRecognition };
+function readOut(sentence, accent) {
+    let utterance = new SpeechSynthesisUtterance(sentence);
+    utterance.lang = `en-${accent}`;
+    window.speechSynthesis.speak(utterance);
+}
+
+export { shuffle, initSpeechRecognition, readOut };

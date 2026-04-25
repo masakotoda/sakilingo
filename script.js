@@ -13,6 +13,7 @@ const countLabel = document.getElementById("countLabel");
 const nextSentenceLabel = document.getElementById("nextSentenceLabel");
 
 
+
 if (location.hostname === 'localhost') {
     window.__state = state;
 }
@@ -53,6 +54,32 @@ if (recognition) {
         countLabel.textContent = `Counter: ${state.counter}`;
     });
 }
+
+ const form = document.getElementById('readOutForm');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault(); // prevent page reload
+
+    const selected = form.elements['accent'].value;
+    console.log("Selected accent:", selected);
+    utils.readOut(nextSentenceLabel.textContent.replace("Next sentence: ", ""), selected);
+  });
+/*
+readUSBtn.addEventListener("click", () => {
+    const sentence = nextSentenceLabel.textContent.replace("Next sentence: ", "");
+    utils.readOutUS(sentence);
+});
+
+readGBBtn.addEventListener("click", () => {
+    const sentence = nextSentenceLabel.textContent.replace("Next sentence: ", "");
+    utils.readOutGB(sentence);
+});
+
+readAUBtn.addEventListener("click", () => {
+    const sentence = nextSentenceLabel.textContent.replace("Next sentence: ", "");
+    utils.readOutAU(sentence);
+});
+*/
 
 //
 //  sentences.push({ sen: "The quick brown fox jumps over the lazy dog." });
