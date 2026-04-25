@@ -10,10 +10,10 @@ const state = {
 const elements = {
     input: document.getElementById("textInput"),
     micBtn: document.getElementById("micBtn"),
-    confirmBtn: document.getElementById("confirmBtn"),
     nextBtn: document.getElementById("nextBtn"),
     countLabel: document.getElementById("countLabel"),
     nextSentenceLabel: document.getElementById("nextSentenceLabel"),
+    japaneseLabel: document.getElementById("japaneseLabel"),
     readOutByGoogleLink: document.getElementById("readOutByGoogle"),
     readOutForm: document.getElementById('readOutForm')
 };
@@ -24,46 +24,37 @@ if (location.hostname === 'localhost') {
 
 state.recognition = utils.initSpeechRecognition();
 
-if (state.recognition) {
-    elements.micBtn.addEventListener("click", () => {
-        elements.input.value = "";
-        state.recognition.start();
-    });
-
-    state.recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        elements.input.value = transcript;
-    };
-
-    state.recognition.onerror = (event) => {
-        console.error("Speech recognition error:", event.error);
-    };
-
-    elements.confirmBtn.addEventListener("click", () => {
-        const userInput = elements.input.value.trim();
-        if (userInput) {
-            state.recognition.stop();
-            if (userInput.toLowerCase() === nextSentenceLabel.textContent.toLowerCase()) {
-                alert(`You entered: ${userInput}`);
-            } else {
-                alert("Incorrect input. Please try again.");
-            }
-        } else {
-            alert("Please enter some text first.");
-        }
-    });
-
-    elements.nextBtn.addEventListener("click", () => {
-        console.log(state.sentences[state.counter])
-
-        elements.input.value = "";
-        elements.nextSentenceLabel.textContent = `${state.sentences[state.counter].sen ?? ""}`;
-        elements.readOutByGoogleLink.href = utils.getGoogleTTSUrl(elements.nextSentenceLabel.textContent);
-
-        state.counter++;
-        elements.countLabel.textContent = `Counter: ${state.counter}`;
-    });
+if (!state.recognition) {
+    console.error("Speech recognition not supported");
 }
+
+elements.micBtn.addEventListener("click", () => {
+    elements.input.value = "";
+    state.recognition.start();
+});
+
+state.recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    elements.input.value = transcript;
+};
+
+state.recognition.onerror = (event) => {
+    console.error("Speech recognition error:", event.error);
+};
+
+elements.nextBtn.addEventListener("click", () => {
+    console.log(state.sentences[state.counter])
+
+    elements.input.value = "";
+
+    // elements.nextSentenceLabel.textContent = `${state.sentences[state.counter].sen ?? ""}`;
+    elements.nextSentenceLabel.textContent = utils.getEnglish(state.sentences[state.counter]);
+    elements.japaneseLabel.textContent = utils.getJapanese(state.sentences[state.counter]);
+    elements.readOutByGoogleLink.href = utils.getGoogleTTSUrl(elements.nextSentenceLabel.textContent);
+
+    state.counter++;
+    elements.countLabel.textContent = `Counter: ${state.counter}`;
+});
 
 elements.readOutForm.addEventListener('submit', (e) => {
     e.preventDefault(); // prevent page reload

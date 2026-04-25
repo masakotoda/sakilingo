@@ -34,4 +34,21 @@ function getGoogleTTSUrl(sentence) {
   return `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(sentence)}&tl=en&client=tw-ob`;
 }
 
-export { shuffle, initSpeechRecognition, readOut, getGoogleTTSUrl };
+function getEnglish(item) {
+    if (item.sen && item.sen.trim() !== "") {
+        return item.sen;
+    }
+    if (item.en && item.en.trim() !== "") {
+        return item.en;
+    }
+    return "";
+}
+
+function getJapanese(item) {
+    if (item.jp && item.jp.trim() !== "") {
+        return item.jp;
+    }
+    return ""
+}
+
+export { shuffle, initSpeechRecognition, readOut, getGoogleTTSUrl, getEnglish, getJapanese  };
