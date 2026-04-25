@@ -30,4 +30,13 @@ function readOut(sentence, accent) {
     window.speechSynthesis.speak(utterance);
 }
 
-export { shuffle, initSpeechRecognition, readOut };
+function readOutFallback(sentence) {
+ const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(sentence)}&tl=en&client=tw-ob`;
+
+  const audio = new Audio(url);
+  audio.play().catch(err => {
+    console.error("Playback failed:", err);
+  });
+}
+
+export { shuffle, initSpeechRecognition, readOut, readOutFallback };

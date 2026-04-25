@@ -37,6 +37,7 @@ if (recognition) {
     confirmBtn.addEventListener("click", () => {
         const userInput = input.value.trim();
         if (userInput) {
+            recognition.stop();
             if (userInput.toLowerCase() === nextSentenceLabel.textContent.toLowerCase()) {
                 alert(`You entered: ${userInput}`);
             } else {
@@ -62,7 +63,8 @@ if (recognition) {
 
     const selected = form.elements['accent'].value;
     console.log("Selected accent:", selected);
-    utils.readOut(nextSentenceLabel.textContent.replace("Next sentence: ", ""), selected);
+    utils.readOutFallback(nextSentenceLabel.textContent.replace("Next sentence: ", ""));
+    //utils.readOut(nextSentenceLabel.textContent.replace("Next sentence: ", ""), selected);
   });
 /*
 readUSBtn.addEventListener("click", () => {
