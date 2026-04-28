@@ -40,7 +40,8 @@ state.recognition.onresult = (event) => {
 };
 
 state.recognition.onerror = (event) => {
-    console.error("Speech recognition error:", event.error);
+    //console.error("Speech recognition error:", event.error);
+    elements.input.placeholder = `Speech recognition error: ${event.error}`;
 };
 
 
@@ -136,6 +137,8 @@ fetch('sentences.tsv')
 function updateSentence() {
     console.log(state.sentences[state.counter])
 
+    state.recognition.stop();
+    elements.input.placeholder = "Click mic and speak...";
     elements.input.value = "";
 
     // elements.nextSentenceLabel.textContent = `${state.sentences[state.counter].sen ?? ""}`;
