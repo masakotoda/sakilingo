@@ -45,10 +45,14 @@ function getEnglish(item) {
 }
 
 function getJapanese(item) {
-    if (item.jp && item.jp.trim() !== "") {
-        return item.jp;
+    var jp = item.jp || item.ja || item.japanese;
+    if (item.syno1 && item.syno1.trim() !== "") {
+        jp += ` ${item.syno1}`;
     }
-    return ""
+    if (item.syno2 && item.syno2.trim() !== "") {
+        jp += ` ${item.syno2}`;
+    }
+    return jp;
 }
 
 export { shuffle, initSpeechRecognition, readOut, getGoogleTTSUrl, getEnglish, getJapanese  };
