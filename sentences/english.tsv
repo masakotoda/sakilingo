@@ -73,7 +73,7 @@ level	tr	yomi	sen
 	binding=拘束力のある		The agreement is legally binding.
 	imperative=絶対必要		It is imperative that everyone attend the next meeting.
 UK	redundant=解雇された		About 200 workers were made redundant.
-	dismissal=解雇		The factory employees were notified of their dismissal.
+UK	dismissal=解雇		The factory employees were notified of their dismissal.
 UK	redundancy=解雇		The automaker announced the redundancies of 3000 staff.
 	conspicuous=目立つ		She was conspicuous by her absence.
 	logistics=物流		Logistics costs account for 13-15 percent of the GDP.
@@ -233,14 +233,14 @@ UK	on offer=売りに出されている		A wide range of famous brands are on of
 	aggravate=悪化させる		Consumption of a huge amount fossil fuels has aggravated global warming.
 UK	excursion=遠足=field trip		There will be a whole school excursion on April 8.
 	output=生産高		Most car companies plan to decrease their car output next year.
-	remark=発言		The foreign minister apologize for his remarks about race.
+	remark=発言		The foreign minister apologized for his remarks about race.
 	correspondent=特派員		The newspaper has five correspondents.
 	correspondence=通信文		She maintained a long correspondence with her former professor.
 	commission=手数料		He gets a 25 percent commission on his sales.
 	deficit=赤字		The company went bankrupt with a deficit of approximately $2 million.
 	undergo=経験する		The world economy is undergoing a serious recession.
 	mount=実施する		The residents in the area are mounting a protest against the construction of the building.
-	stage=実施する		The union will stage a trike tomorrow.
+	stage=実施する		The union will stage a strike tomorrow.
 	prominent=著名な		Mr. Dawson is a prominent business leader.
 	diligent=勤勉な		Sarah is very diligent in her work.
 	prosperous=thriving=繫栄している		Sweden is one of the most prosperous countries in the world.
@@ -401,3 +401,7 @@ UK	be sited on=位置する		The company's head office is sited in Paris.
 	conceive=思いつく		She conceived a clever solution to the problem.
 	trade conflict=貿易摩擦		The trade conflict disrupted businesses in both countries.
 	immense=enormous=巨大な		The project required an immense amount of time and effort.
+	paean=賛美		The speech was a paean to freedom and democracy.
+	bougie=bourgeois=高級な		She bought a bougie apartment in the city center.
+	splurge=散財する		They were splurging on expensive meals during their vacation.
+	clemency=恩赦		The governor granted clemency to the prisoner after years of appeals.

@@ -83,10 +83,14 @@ function getYomi(item) {
 }
 
 function getTranslation(item) {
-    if (item.tr && item.tr.trim() !== "") {
-        return item.tr;
+    let level = "";
+    if (item.level && item.level.trim() !== "") {
+        level = ` (${item.level.trim()})`;
     }
-    return "";
+    if (item.tr && item.tr.trim() !== "") {
+        return item.tr + level;
+    }
+    return level;
 }
 
 function normalize(text) {
